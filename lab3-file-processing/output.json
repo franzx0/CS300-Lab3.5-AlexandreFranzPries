@@ -1,0 +1,32 @@
+{
+  "filterType": "genre",
+  "filterValue": "Fiction",
+  "resultCount": 3,
+  "timestamp": "2026-02-07T05:59:10.184Z",
+  "results": [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction",
+      "rating": 4.2,
+      "year": 1925
+    },
+    {
+      "id": 2,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "genre": "Fiction",
+      "rating": 4.5,
+      "year": 1960
+    },
+    {
+      "id": 6,
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "genre": "Fiction",
+      "rating": 3.8,
+      "year": 1951
+    }
+  ]
+}

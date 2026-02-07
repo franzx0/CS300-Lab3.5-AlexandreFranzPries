@@ -14,16 +14,26 @@ function main() {
     const filterType = process.argv[2];
     const filterValue = process.argv[3];
     
-    // TODO: Check if we have both arguments
-   
+    // Check if we have both arguments
+    if (!filterType || !filterValue) {
+      // If either argument does not exist then we will print an error to the console
+      console.log('\nError: Missing command-line arguments.');
+      console.log('Usage: node processBooks.js <filterType> <filterValue>\n');
+      console.log('Example:\n');
+      console.log('  node processBooks.js genre Fiction\n');
+      console.log('  node processBooks.js rating 4.5\n');
+      process.exit(1);
+    }
     
     // STEP 2: Read and parse the JSON file
     console.log('Reading books.json...');
-    // TODO: Use fs.readFileSync() with 'utf8' encoding
-   
     
-    // TODO: Parse the JSON
+    // Use fs.readFileSync() with 'utf8' encoding to read the file
+    const fileContent = fs.readFileSync(INPUT_FILE, 'utf8');
     
+    // Parse the JSON string into a JavaScript object
+    const data = JSON.parse(fileContent);
+    const books = data.books;
     
     console.log(`Loaded ${books.length} books\n`);
     
@@ -32,8 +42,21 @@ function main() {
     
     let filteredBooks = [];
     
-     // TODO: Filter by genre (case-insensitive)
-      
+    // Filter by genre (case-insensitive) or rating
+    if (filterType.toLowerCase() === 'genre') {
+      // Filter books where genre matches (case-insensitive comparison)
+      filteredBooks = books.filter(book => 
+        book.genre.toLowerCase() === filterValue.toLowerCase()
+      );
+    } else if (filterType.toLowerCase() === 'rating') {
+      // Filter books where rating is greater than or equal to the specified value
+      const minRating = parseFloat(filterValue);
+      filteredBooks = books.filter(book => book.rating >= minRating);
+    } else {
+      console.log('\nError: Invalid filter type.');
+      console.log('Valid filter types are: genre, rating\n');
+      process.exit(1);
+    }
     
     console.log(`Found ${filteredBooks.length} matching books\n`);
     
@@ -46,8 +69,8 @@ function main() {
       results: filteredBooks
     };
     
-    // TODO: Write to output.json with pretty formatting
-    
+    // Write to output.json with pretty formatting (2-space indentation)
+    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2), 'utf8');
     
     console.log('Results written to output.json\n');
     console.log('Summary:');
